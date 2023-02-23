@@ -1,11 +1,11 @@
 import asyncio
 import os
 import sys
+import redis as Redis
 from datetime import datetime
 from threading import Lock
 from typing import Optional
 
-import redis as Redis
 from redis import asyncio as aioredis
 from aiofile import async_open
 from loguru import logger
