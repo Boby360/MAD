@@ -339,7 +339,7 @@ class AbstractWorkerStrategy(ABC):
             elif screen_type == ScreenType.MAINTENANCE:
                 logger.warning("Maintenance screen - switch account ...")
                 self._worker_state.login_error_count += 1
-                if self._worker_state.login_error_count > 2:
+                if self._worker_state.login_error_count < 2:
                 await self._switch_user()
                 else:
                 await self.stop_pogo()
