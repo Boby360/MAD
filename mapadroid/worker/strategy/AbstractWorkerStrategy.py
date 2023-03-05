@@ -339,9 +339,10 @@ class AbstractWorkerStrategy(ABC):
             elif screen_type == ScreenType.MAINTENANCE:
                 logger.warning("Maintenance screen - switch account ...")
                 self._worker_state.login_error_count += 1
-                if self._worker_state.login_error_count > 1:
+                if self._worker_state.login_error_count > 2:
                 await self._switch_user()
-                else
+                else:
+                await self.stop_pogo()
                 await asyncio.sleep(14400)
                 self._worker_state.login_error_count = 0
             elif screen_type in [ScreenType.ERROR, ScreenType.FAILURE]:
