@@ -345,7 +345,6 @@ class AbstractWorkerStrategy(ABC):
                     self._worker_state.login_error_count = 0
                     await self.stop_pogo()
                     await asyncio.sleep(14400)
-                   
             elif screen_type in [ScreenType.ERROR, ScreenType.FAILURE]:
                 logger.warning('Something wrong with screendetection or pogo failure screen')
                 self._worker_state.login_error_count += 1
