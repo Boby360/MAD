@@ -1,7 +1,7 @@
 ############################
 # MAD
 ############################
-FROM python:3.9-slim AS mad-core
+FROM python:3.11-slim AS mad-core
 # Working directory for the application
 WORKDIR /usr/src/app
 
@@ -19,6 +19,8 @@ default-libmysqlclient-dev \
 python3-opencv \
 libsm6 \
 libgl1-mesa-glx \
+# tesseract-ocr needs to be up here since the apt-get update will make it visible
+tesseract-ocr \
 # python reqs
 && python3 -m pip install --no-cache-dir -r requirements.txt ortools redis \
 # cleanup
@@ -26,8 +28,6 @@ libgl1-mesa-glx \
 && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
 && rm -rf /var/lib/apt/lists/*
 
-# tesseract
-RUN apt-get update && apt-get -y install tesseract-ocr
 
 # Copy everything to the working directory (Python files, templates, config) in one go.
 COPY . /usr/src/app/
