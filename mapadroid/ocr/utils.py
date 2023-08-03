@@ -2,8 +2,8 @@ from typing import List, Optional, Tuple
 
 import cv2
 import numpy as np
-from PIL import Image
 from loguru import logger
+from PIL import Image
 from pytesseract import Output, pytesseract
 
 from mapadroid.ocr.screen_type import ScreenType
@@ -31,8 +31,9 @@ screen_texts: dict = {1: ['Geburtdatum', 'birth.', 'naissance.', 'date'],
                       19: ['geplanter', 'Wartungsarbeiten', 'maintenance.', 'maintenance'],
                       21: ['GPS', 'signal', 'GPS-Signal', '(11)', 'introuvable.',
                            'found.', 'gefunden.', 'Signal', 'geortet', 'detect', '(12)'],
-                      # Commented since blurry login may result in wrongfully thinking NEW PLAYER screen reached?
-                      # 23: ['CLUB', 'KIDS'],
+                      # Used to be commented since blurry login may result in wrongfully thinking
+                      # NEW PLAYER screen reached?
+                      23: ['CLUB', 'KIDS'],
                       25: ['SIGNOUT', 'SIGN', 'ABMELDEN', '_DECONNECTER'],
                       30: ['Welcome!', 'Willkommen!', 'Bienvenue!'],
                       31: ['Terms', 'Service'],
@@ -62,7 +63,7 @@ def screendetection_get_type_internal(image,
 
                 if width < 1080:
                     logger.info('Resize screen ...')
-                    frame_org = frame_org.resize([int(2 * s) for s in frame_org.size], Image.ANTIALIAS)
+                    frame_org = frame_org.resize([int(2 * s) for s in frame_org.size], Image.LANCZOS)
                     diff: int = 2
 
                 texts = [frame_org]
